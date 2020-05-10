@@ -1,0 +1,112 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.main {
+    width: 100vw;
+    height: 100vh;
+    background-color: darkcyan;
+    padding: 5vh;
+}
+
+.calFrame {
+    width: 25vw;
+    min-height: 45vh;
+    height: auto;
+    border: 4px solid black;
+    margin: 5vh auto;
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+}
+
+.status {
+    height: 2rem;
+    background-color: black;
+    color: aquamarine;
+    margin: 0px 10%;
+    font-size: 1.7rem;
+}
+
+.calDisplay {
+    background-color: aliceblue;
+    width: 90%;
+    height: 8vh;
+    margin: 2vh auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-size: 2.4rem;
+    border: .5px solid black;
+}
+
+.calButtonsFrame {
+    margin: 0 20%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.calButton {
+    font-size: 2rem;
+    padding: 1.2rem 1rem;
+    margin: .5vh .5vh;
+    background-color: white;
+    border: 2px solid #187171;
+    border-radius: 4px;
+    transform: scale(1);
+    box-shadow: 1px 2px;
+}
+
+
+.calButton:hover,
+.clearButton:hover {
+    transform: scale(1.1);
+}
+
+.clearButton {
+    padding: .5rem;
+    margin: 2% auto;
+    width: 30%;
+    color: white;
+    text-shadow: 1px 2px black;
+    border: .5px solid black;
+    box-shadow: 1px 2px #135f5f;
+    text-transform: uppercase;
+    background-color: darkcyan;
+}
+
+
+@media (max-width:1700px) {
+    .calFrame {
+        width: 30vw;
+    }
+
+}
+
+@media (max-width:1470px) {
+    .calFrame {
+        width: 35vw;
+    }
+}
+
+@media (max-width:1260px) {
+    .calFrame {
+        width: 40vw;
+    }
+}
+
+@media (max-width:1100px) {
+    .calFrame {
+        width: 45vw;
+    }
+
+}
+
+@media (max-width:980px)
+{
+    .calFrame {
+    width: 50vw;
+}
