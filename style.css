@@ -25,6 +25,7 @@
 }
 
 .status {
+    min-height: 50px;
     background-color: #004D40;
     color: aquamarine;
     margin: 0px 10%;
