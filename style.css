@@ -17,6 +17,7 @@
     min-height: 45vh;
     height: auto;
     border: 4px solid black;
+    border-radius: 5px;
     margin: 5vh auto;
     background-color: aquamarine;
     display: flex;
@@ -24,11 +25,17 @@
 }
 
 .status {
-    height: 2rem;
-    background-color: black;
+    min-height: 50px;
+    background-color: #004D40;
     color: aquamarine;
     margin: 0px 10%;
     font-size: 1.7rem;
+    padding: 4px;
+    border-style:solid;
+    border-width:3px;  
+    border-color:black;
+    border-color: #263238;
+    border-radius: 3px;
 }
 
 .calDisplay {
@@ -41,6 +48,9 @@
     align-items: flex-end;
     font-size: 2.4rem;
     border: .5px solid black;
+    border-radius: 3px;
+    padding-right: 4px;
+    
 }
 
 .calButtonsFrame {
@@ -64,6 +74,7 @@
 .calButton:hover,
 .clearButton:hover {
     transform: scale(1.1);
+    cursor: pointer;
 }
 
 .clearButton {
@@ -76,6 +87,7 @@
     box-shadow: 1px 2px #135f5f;
     text-transform: uppercase;
     background-color: darkcyan;
+    text-align: center;
 }
 
 
