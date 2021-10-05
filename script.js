@@ -11,7 +11,9 @@ window.addEventListener('load', () => {
     let calButtons = document.querySelectorAll('.calButton');
     let status = document.querySelector('.status');
     let clearButton = document.querySelector('.clearButton');
-    let num1, num2, op, xt;
+    let num1, num2, op, xt = "";
+
+    // Add click event to the clear button
     clearButton.addEventListener('click', () => {
         calDisplay.textContent = " ";
         num1 = "";
@@ -19,11 +21,13 @@ window.addEventListener('load', () => {
         op = "";
         xt = "";
         status.textContent = " ";
-    })
+    });
 
+    // Initiate the number and operational buttons
     calButtons.forEach((item) => {
-        if (!(item.dataset.val == "=")) {
-            if (!(item.dataset.val == "+" || item.dataset.val == "-" || item.dataset.val == "/" || item.dataset.val == "%" || item.dataset.val == "*")) {
+        if (item.dataset.val !== "=") {
+            if (item.dataset.val !== "+" && item.dataset.val !== "-" && item.dataset.val !== "/" && item.dataset.val !== "%" && item.dataset.val !== "*") {
+                // Add click event for all number buttons
                 item.addEventListener('click', () => {
                     const regex = RegExp('([\+\-\/\*\%])', 'g');
                     if (!(regex.test(calDisplay.textContent.trim()))) {
@@ -32,34 +36,34 @@ window.addEventListener('load', () => {
                         op = calDisplay.textContent.trim().match(/([\+\-\/\*\%])/g).join("");
                         calDisplay.textContent = item.dataset.val;
                     }
-                })
+                });
             } else {
+                // Add click event for all operation buttons
                 item.addEventListener('click', () => {
                     if (!(num1)) {
+                        // First number is not defined. Lets add it to variable num1
                         num1 = calDisplay.textContent.trim();
                         op = item.dataset.val;
                         status.textContent = num1;
                         calDisplay.textContent = item.dataset.val;
                     } else {
+                        // First number is defined. Set the second value and execute the current caclulation operation (op)
                         num2 = calDisplay.textContent.trim();
                         calculate(num1, num2, op);
                         calDisplay.textContent = item.dataset.val;
                     }
-
-                })
+                });
             }
 
         } else {
+            // Add click event to the equals (=) button
             item.addEventListener('click', () => {
                 num2 = calDisplay.textContent.trim();
                 xt = item.dataset.val;
                 calculate(num1, num2, op);
-
-            })
-
+            });
         }
-    })
-
+    });
 
     function setDisplay(val) {
         if (!(xt)) {
@@ -68,7 +72,6 @@ window.addEventListener('load', () => {
             status.textContent = "";
             calDisplay.textContent = val;
         }
-
     }
 
     function calculate(a, b, c) {
@@ -123,11 +126,4 @@ window.addEventListener('load', () => {
         num1 = a * c;
         setDisplay(a * c);
     }
-
-
-
-
-
 });
-
-
