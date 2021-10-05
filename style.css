@@ -126,6 +126,24 @@ body
   transition: 0.1s ease;
 }
 
+@media (max-width: 1900px) {
+  .calFrame {
+    width: 25vw;
+  }
+  .calButtonsFrame {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+  }
+
+  .calButton {
+    width: 5rem;
+    text-align: center;
+  }
+}
+
+
 @media (max-width: 1700px) {
   .calFrame {
     width: 30vw;
@@ -143,9 +161,26 @@ body
   }
 }
 
+@media (max-width: 1500px) {
+  .calFrame {
+    width: 33vw;
+  }
+  .calButtonsFrame {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+  }
+
+  .calButton {
+    width: 6rem;
+    text-align: center;
+  }
+}
+
 @media (max-width: 1470px) {
   .calFrame {
-    width: 35vw;
+    width: 37vw;
   }
 }
 
@@ -157,7 +192,7 @@ body
 
 @media (max-width: 1100px) {
   .calFrame {
-    width: 45vw;
+    width: 48vw;
   }
 }
 
@@ -167,10 +202,19 @@ body
     height: 9vh;
   }
   .calFrame {
-    width: 50vw;
+    width: 53vw;
   }
 }
 
+@media (max-width: 800px) {
+  .calDisplay
+  {
+    height: 9vh;
+  }
+  .calFrame {
+    width: 60vw;
+  }
+}
 
 @media (max-width: 700px) {
   .calDisplay
@@ -182,8 +226,11 @@ body
   }
   .calButton {
     width: 4.5rem;
-    height: 5rem;
-    text-align: center;
+    height: 4.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
   }
  
 }
@@ -199,7 +246,9 @@ body
   .calButton {
     width: 4rem;
     height: 4rem;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 22px;
   }
   .clearButton
@@ -215,10 +264,10 @@ body
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
   .calDisplay
   {
-    height: 11vh;
+    height: 10vh;
   }
   .calFrame {
     width: 60vw;
@@ -226,13 +275,15 @@ body
   .calButton {
     width: 3rem;
     height: 3rem;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 20px;
   }
   .clearButton
   {
-    padding: 5px;
-    font-size: 18px;
+    padding: 7px;
+    font-size: 17px;
   }
   .preloader img
   {
@@ -241,24 +292,86 @@ body
   }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 400px) {
   .calDisplay
   {
     height: 8vh;
   }
   .calFrame {
-    width: 60vw;
+    width: 70vw;
   }
   .calButton {
     width: 2.9rem;
     height: 2.9rem;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 19px;
   }
   .clearButton
   {
-    padding: 3px;
+    padding: 10px;
     font-size: 14px;
+  }
+  .preloader img
+  {
+    height: 100px;
+    width: auto;
+  }
+}
+
+@media (max-width: 300px) {
+  .calDisplay
+  {
+    height: 8vh;
+    font-size: 25px;
+  }
+  .calFrame {
+    width: 80vw;
+  }
+  .calButton {
+    width: 2.3rem;
+    height: 2.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+  }
+  .clearButton
+  {
+    padding: 10px;
+    font-size: 14px;
+  }
+  .preloader img
+  {
+    height: 100px;
+    width: auto;
+  }
+}
+
+@media (max-width: 200px) {
+  .calDisplay
+  {
+    height: 5vh;
+    font-size: 22px;
+  }
+  
+  .calFrame 
+  {
+    width: 90vw;
+  }
+  .calButton {
+    width: 1.6rem;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+  }
+  .clearButton
+  {
+    padding: 7px;
+    font-size: 11px;
   }
   .preloader img
   {
