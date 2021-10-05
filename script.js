@@ -1,3 +1,10 @@
+/*-----------Function For preloader start-----------*/
+var preloader = document.getElementById('preloader');
+function myFunctionLoad()
+{
+  preloader.style.display = 'none';
+}
+/*-----------Function For preloader end-------------*/
 window.addEventListener('load', () => {
 
     let calDisplay = document.querySelector('.calDisplay');
@@ -122,3 +129,5 @@ window.addEventListener('load', () => {
 
 
 });
+
+
