@@ -16,25 +16,32 @@ window.addEventListener('load', () => {
     // Add click event to the clear button
     clearButton.addEventListener('click', () => {
         calDisplay.textContent = " ";
-        num1 = "";
-        num2 = "";
-        op = "";
-        xt = "";
-        status.textContent = " ";
+        num1 = "";                                  // First number in the calculation
+        num2 = "";                                  // Second number in the calculation
+        op = "";                                    // Operation for the calculation
+        xt = "";                                    // Did we hit the (=) button or not. After clicking this, we want to start a new caclulation
+        status.textContent = "";
     });
 
     // Initiate the number and operational buttons
     calButtons.forEach((item) => {
         if (item.dataset.val !== "=") {
-            if (item.dataset.val !== "+" && item.dataset.val !== "-" && item.dataset.val !== "/" && item.dataset.val !== "%" && item.dataset.val !== "*") {
+            if (item.dataset.val !== "+" && item.dataset.val !== "-" && item.dataset.val !== "÷" && item.dataset.val !== "%" && item.dataset.val !== "*") {
                 // Add click event for all number buttons
                 item.addEventListener('click', () => {
-                    const regex = RegExp('([\+\-\/\*\%])', 'g');
-                    if (!(regex.test(calDisplay.textContent.trim()))) {
-                        calDisplay.textContent += item.dataset.val;
-                    } else {
-                        op = calDisplay.textContent.trim().match(/([\+\-\/\*\%])/g).join("");
+                    // Does the display contain operational chars?
+                    const matchResult = calDisplay.textContent.trim().match(/([\+\-\÷\*\%])/g);
+                    if (matchResult) {
+                        op = matchResult && matchResult.join("") || "";
                         calDisplay.textContent = item.dataset.val;
+                    } else {
+                        // Are we adding numbers after clicking the (=) button? If so, we want to start with a new calculation.
+                        if (xt === "=") {
+                            xt = ""; // Restore this variable until we hit the (=) button again.
+                            calDisplay.textContent = item.dataset.val; // Start with a new caclulation
+                        } else {
+                            calDisplay.textContent += item.dataset.val; // Add numbers to the current num1 or num2
+                        }
                     }
                 });
             } else {
@@ -59,19 +66,18 @@ window.addEventListener('load', () => {
             // Add click event to the equals (=) button
             item.addEventListener('click', () => {
                 num2 = calDisplay.textContent.trim();
-                xt = item.dataset.val;
                 calculate(num1, num2, op);
+                num1 = "";
+                num2 = "";
+                status.textContent = "";
+                xt = "="
             });
         }
     });
 
     function setDisplay(val) {
-        if (!(xt)) {
-            status.textContent = val;
-        } else {
-            status.textContent = "";
-            calDisplay.textContent = val;
-        }
+        status.textContent = num1;
+        calDisplay.textContent = val;
     }
 
     function calculate(a, b, c) {
@@ -86,7 +92,7 @@ window.addEventListener('load', () => {
                 sub(a, b);
                 break;
 
-            case '/':
+            case '÷':
                 div(a, b);
                 break;
 
