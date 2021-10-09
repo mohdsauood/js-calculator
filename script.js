@@ -1,76 +1,55 @@
-/*-----------Function For preloader start-----------*/
+// set loading preloader 
 var preloader = document.getElementById('preloader');
 function myFunctionLoad()
 {
   preloader.style.display = 'none';
 }
-/*-----------Function For preloader end-------------*/
 window.addEventListener('load', () => {
-
     let calDisplay = document.querySelector('.calDisplay');
     let calButtons = document.querySelectorAll('.calButton');
     let status = document.querySelector('.status');
     let clearButton = document.querySelector('.clearButton');
-    let num1, num2, op, xt = "";
-
+    let num1, num2, operator, 
+    clickedOnEqualsButton = "";
+  
     // Add click event to the clear button
     clearButton.addEventListener('click', () => {
         calDisplay.textContent = " ";
         num1 = "";
         num2 = "";
-        op = "";
-        xt = "";
+        operator = "";
+        clickedOnEqualsButton = "";
         status.textContent = " ";
     });
 
     // Initiate the number and operational buttons
     calButtons.forEach((item) => {
+        //item is not "="
         if (item.dataset.val !== "=") {
+            // item is a number
             if (item.dataset.val !== "+" && item.dataset.val !== "-" && item.dataset.val !== "/" && item.dataset.val !== "%" && item.dataset.val !== "*") {
-                // Add click event for all number buttons
-                item.addEventListener('click', () => {
-                    const regex = RegExp('([\+\-\/\*\%])', 'g');
-                    if (!(regex.test(calDisplay.textContent.trim()))) {
-                        calDisplay.textContent += item.dataset.val;
-                    } else {
-                        op = calDisplay.textContent.trim().match(/([\+\-\/\*\%])/g).join("");
-                        calDisplay.textContent = item.dataset.val;
-                    }
-                });
-            } else {
-                // Add click event for all operation buttons
-                item.addEventListener('click', () => {
-                    if (!(num1)) {
-                        // First number is not defined. Lets add it to variable num1
-                        num1 = calDisplay.textContent.trim();
-                        op = item.dataset.val;
-                        status.textContent = num1;
-                        calDisplay.textContent = item.dataset.val;
-                    } else {
-                        // First number is defined. Set the second value and execute the current caclulation operation (op)
-                        num2 = calDisplay.textContent.trim();
-                        calculate(num1, num2, op);
-                        calDisplay.textContent = item.dataset.val;
-                    }
-                });
+               addClickEventToNumberButton(item) ;   
+            } 
+            // item is a operator
+            else {
+               addClickEventToOperationButton(item);
             }
 
         } else {
-            // Add click event to the equals (=) button
             item.addEventListener('click', () => {
                 num2 = calDisplay.textContent.trim();
-                xt = item.dataset.val;
-                calculate(num1, num2, op);
+                clickedOnEqualsButton = item.dataset.val;
+                calculate(num1, num2, operator);
             });
         }
     });
 
     function setDisplay(val) {
-        if (!(xt)) {
-            status.textContent = val;
-        } else {
+        if (clickedOnEqualsButton) { 
             status.textContent = "";
             calDisplay.textContent = val;
+        } else {
+            status.textContent = val;
         }
     }
 
@@ -126,4 +105,39 @@ window.addEventListener('load', () => {
         num1 = a * c;
         setDisplay(a * c);
     }
+function addClickEventToNumberButton(item)
+{
+    item.addEventListener('click', () => {
+        //regex to match mathimatical operators
+        const regex = RegExp('([\+\-\/\*\%])', 'g');
+        // if matched value is number then update display with the number
+        if (!(regex.test(calDisplay.textContent.trim()))) {
+            calDisplay.textContent += item.dataset.val;
+        } 
+        //update display with the number and set operator property with selected operator
+        else {
+            operator = calDisplay.textContent.trim().match(/([\+\-\/\*\%])/g).join("");
+            calDisplay.textContent = item.dataset.val;
+        }
+    });
+}
+
+function addClickEventToOperationButton(item){
+    item.addEventListener('click', () => {
+        // if first number is defined then update display with num1
+        if (!(num1)) {
+            num1 = calDisplay.textContent.trim();
+            operator = item.dataset.val;
+            status.textContent = num1;
+            calDisplay.textContent = item.dataset.val;
+        } else {
+            //Set the second value and call calculate method
+            num2 = calDisplay.textContent.trim();
+            calculate(num1, num2, operator);
+            calDisplay.textContent = item.dataset.val;
+        }
+    });
+}
 });
+
+
