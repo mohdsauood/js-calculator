@@ -1,53 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Calculator</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body onload="myFunctionLoad()">
-    
-    <div class="preloader" id="preloader">
-        <img src="./images/preloader.png" alt="preloader">
-    </div>
-
-    <div class="main">
-        <div class="calFrame">
-            <div maxlength="3" class="calDisplay">
-                
-            </div>
-            <p class="status"> </p>
-            <div class="calButtonsFrame">
-                <div data-val="1" class="calButton">1 </div>
-                <div data-val="2"  class="calButton">2 </div>
-                <div data-val="3"  class="calButton">3 </div>
-                <div data-val="+"  class="calButton">+</div>
-                <div data-val="4"  class="calButton">4 </div>
-                <div data-val="5"  class="calButton">5 </div>
-                <div data-val="6"  class="calButton">6 </div>
-                <div data-val="-"  class="calButton">-</div>
-                <div data-val="7"  class="calButton">7 </div>
-                <div data-val="8"  class="calButton">8 </div>
-                <div data-val="9"  class="calButton">9 </div>
-                <div data-val="/"  class="calButton">/</div>
-                <div data-val="0"  class="calButton">0 </div>
-                <div data-val="="  class="calButton">=</div>
-                <div data-val="%"  class="calButton">%</div>
-                <div data-val="*" class="calButton">x</div>
-            </div>
-            <div class="clearButton">
-                Clear
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <script src="script.js"></script>
-</body></html>
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <title>Calculator</title> 
+  <link rel="stylesheet" href="style.css"> 
+ </head> 
+ <body> 
+  <div class="calculator"> 
+   <form action="#" name="form"> 
+    <div class="result"> 
+     <input type="text" name="disp" id="disp" placeholder="0"> 
+    </div> 
+    <div class="buttons"> 
+     <div class="row"> 
+      <input type="button" value="7" name="v7" onclick="val(v7.value)"> 
+      <input type="button" value="8" name="v8" onclick="val(v8.value)"> 
+      <input type="button" value="9" name="v9" onclick="val(v9.value)"> 
+      <input type="button" value="+" name="add" onclick="val(add.value)"> 
+     </div> 
+     <div class="row"> 
+      <input type="button" value="4" name="v4" onclick="val(v4.value)"> 
+      <input type="button" value="5" name="v5" onclick="val(v5.value)"> 
+      <input type="button" value="6" name="v6" onclick="val(v6.value)"> 
+      <input type="button" value="-" name="sub" onclick="val(sub.value)"> 
+     </div> 
+     <div class="row"> 
+      <input type="button" value="1" name="v1" onclick="val(v1.value)"> 
+      <input type="button" value="2" name="v2" onclick="val(v2.value)"> 
+      <input type="button" value="3" name="v3" onclick="val(v3.value)"> 
+      <input type="button" value="*" name="mul" onclick="val(mul.value)"> 
+     </div> 
+     <div class="row"> 
+      <input type="button" value="0" name="v0" onclick="val(v0.value)"> 
+      <input type="button" value="." name="vdot" onclick="val(vdot.value)"> 
+      <input type="button" value="/" name="vdiv" onclick="val(vdiv.value)"> 
+      <input type="button" value="=" name="veql" id="eql" onclick="calculate()"> 
+      <input type="button" value="c" onclick="clr()"> 
+      <input type="button" value="⬅" id="del"> 
+     </div> 
+    </div> 
+   </form>
+  </div> 
+  <script src="script.js"></script>
+ </body>
+</html>
+ 
