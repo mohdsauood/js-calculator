@@ -138,6 +138,66 @@ function addClickEventToOperationButton(item){
         }
     });
 }
+  
+  document.addEventListener("keydown", function (event) {
+        console.log(event.keyCode);
+        const key = event.key;
+
+        if (key === "0" || key === "1" || key === "2" || key === "3" || key === "4" || key === "5" || key === "6" || key === "7" || key === "8" || key === "9" || key === '+' || key === '-' || key === "/" || key === '%' || key === '*') {
+            if (key !== '+' && key !== '-' && key !== "/" && key !== '%' && key !== '*') {
+                addKeyboardEventToNumberButton(key)
+            }
+            else {
+                addKeyboardEventToOperationButton(key);
+            }
+        } else if (key === "=" || key === "Enter") {
+
+            num2 = calDisplay.textContent.trim();
+            clickedOnEqualsButton = key;
+            calculate(num1, num2, operator);
+        } else if (event.keyCode === 8) {
+            calDisplay.textContent = " ";
+            num1 = "";
+            num2 = "";
+            operator = "";
+            clickedOnEqualsButton = "";
+            status.textContent = " ";
+        }
+
+    })
+
+    function addKeyboardEventToNumberButton(item) {
+
+        //regex to match mathimatical operators
+        const regex = RegExp('([\+\-\/\*\%])', 'g');
+        // if matched value is number then update display with the number
+        if (!(regex.test(calDisplay.textContent.trim()))) {
+            calDisplay.textContent += item;
+        }
+        //update display with the number and set operator property with selected operator
+        else {
+            operator = calDisplay.textContent.trim().match(/([\+\-\/\*\%])/g).join("");
+            calDisplay.textContent = item;
+        }
+    }
+
+    function addKeyboardEventToOperationButton(item) {
+
+        // if first number is defined then update display with num1
+        if (!(num1)) {
+            num1 = calDisplay.textContent.trim();
+            operator = item;
+            status.textContent = num1;
+            calDisplay.textContent = item;
+        } else {
+            //Set the second value and call calculate method
+            num2 = calDisplay.textContent.trim();
+            calculate(num1, num2, operator);
+            calDisplay.textContent = item;
+        }
+    }
+  
+  
 });
 
 
