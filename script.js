@@ -1,17 +1,17 @@
 // set loading preloader 
 var preloader = document.getElementById('preloader');
-function myFunctionLoad()
-{
-  preloader.style.display = 'none';
+function myFunctionLoad() {
+    preloader.style.display = 'none';
 }
+
 window.addEventListener('load', () => {
     let calDisplay = document.querySelector('.calDisplay');
     let calButtons = document.querySelectorAll('.calButton');
     let status = document.querySelector('.status');
     let clearButton = document.querySelector('.clearButton');
-    let num1, num2, operator, 
-    clickedOnEqualsButton = "";
-  
+    let num1, num2, operator,
+        clickedOnEqualsButton = "";
+
     // Add click event to the clear button
     clearButton.addEventListener('click', () => {
         calDisplay.textContent = " ";
@@ -28,11 +28,11 @@ window.addEventListener('load', () => {
         if (item.dataset.val !== "=") {
             // item is a number
             if (item.dataset.val !== "+" && item.dataset.val !== "-" && item.dataset.val !== "/" && item.dataset.val !== "%" && item.dataset.val !== "*") {
-               addClickEventToNumberButton(item) ;   
-            } 
+                addClickEventToNumberButton(item);
+            }
             // item is a operator
             else {
-               addClickEventToOperationButton(item);
+                addClickEventToOperationButton(item);
             }
 
         } else {
@@ -45,7 +45,7 @@ window.addEventListener('load', () => {
     });
 
     function setDisplay(val) {
-        if (clickedOnEqualsButton) { 
+        if (clickedOnEqualsButton) {
             status.textContent = "";
             calDisplay.textContent = val;
         } else {
@@ -105,45 +105,48 @@ window.addEventListener('load', () => {
         num1 = a * c;
         setDisplay(a * c);
     }
-function addClickEventToNumberButton(item)
-{
-    item.addEventListener('click', () => {
-        //regex to match mathimatical operators
-        const regex = RegExp('([\+\-\/\*\%])', 'g');
-        // if matched value is number then update display with the number
-        if (!(regex.test(calDisplay.textContent.trim()))) {
-            calDisplay.textContent += item.dataset.val;
-        } 
-        //update display with the number and set operator property with selected operator
-        else {
-            operator = calDisplay.textContent.trim().match(/([\+\-\/\*\%])/g).join("");
-            calDisplay.textContent = item.dataset.val;
-        }
-    });
-}
 
-function addClickEventToOperationButton(item){
-    item.addEventListener('click', () => {
-        // if first number is defined then update display with num1
-        if (!(num1)) {
-            num1 = calDisplay.textContent.trim();
-            operator = item.dataset.val;
-            status.textContent = num1;
-            calDisplay.textContent = item.dataset.val;
-        } else {
-            //Set the second value and call calculate method
-            num2 = calDisplay.textContent.trim();
-            calculate(num1, num2, operator);
-            calDisplay.textContent = item.dataset.val;
-        }
-    });
-}
-  
-  document.addEventListener("keydown", function (event) {
-        console.log(event.keyCode);
+    function addClickEventToNumberButton(item) {
+        item.addEventListener('click', () => {
+            var patt1 = /[\+\-\/\*\%]/g;
+
+            //regex to match mathimatical operators
+            // const regex = RegExp('([\+\-\/\*\%])', 'g');
+            // if matched value is number then update display with the number
+
+
+            if (!calDisplay.textContent.trim().match(patt1)) {
+                calDisplay.textContent += item.dataset.val;
+            }
+            //update display with the number and set operator property with selected operator
+            else {
+                operator = calDisplay.textContent.trim().match(/([\+\-\/\*\%])/g).join("");
+                calDisplay.textContent = item.dataset.val;
+            }
+        });
+    }
+
+    function addClickEventToOperationButton(item) {
+        item.addEventListener('click', () => {
+            // if first number is defined then update display with num1
+            if (!(num1)) {
+                num1 = calDisplay.textContent.trim();
+                operator = item.dataset.val;
+                status.textContent = num1;
+                calDisplay.textContent = item.dataset.val;
+            } else {
+                //Set the second value and call calculate method
+                num2 = calDisplay.textContent.trim();
+                calculate(num1, num2, operator);
+                calDisplay.textContent = item.dataset.val;
+            }
+        });
+    }
+
+    document.addEventListener("keydown", function (event) {
         const key = event.key;
 
-        if (key === "0" || key === "1" || key === "2" || key === "3" || key === "4" || key === "5" || key === "6" || key === "7" || key === "8" || key === "9" || key === '+' || key === '-' || key === "/" || key === '%' || key === '*') {
+        if (key === "." || key === "0" || key === "1" || key === "2" || key === "3" || key === "4" || key === "5" || key === "6" || key === "7" || key === "8" || key === "9" || key === '+' || key === '-' || key === "/" || key === '%' || key === '*') {
             if (key !== '+' && key !== '-' && key !== "/" && key !== '%' && key !== '*') {
                 addKeyboardEventToNumberButton(key)
             }
@@ -168,13 +171,16 @@ function addClickEventToOperationButton(item){
 
     function addKeyboardEventToNumberButton(item) {
 
+        var patt1 = /[\+\-\/\*\%]/g;
+
         //regex to match mathimatical operators
-        const regex = RegExp('([\+\-\/\*\%])', 'g');
+        // const regex = RegExp('([\+\-\/\*\%])', 'g');
         // if matched value is number then update display with the number
-        if (!(regex.test(calDisplay.textContent.trim()))) {
+
+        if (!calDisplay.textContent.trim().match(patt1)) {
             calDisplay.textContent += item;
         }
-        //update display with the number and set operator property with selected operator
+        // update display with the number and set operator property with selected operator
         else {
             operator = calDisplay.textContent.trim().match(/([\+\-\/\*\%])/g).join("");
             calDisplay.textContent = item;
@@ -185,6 +191,7 @@ function addClickEventToOperationButton(item){
 
         // if first number is defined then update display with num1
         if (!(num1)) {
+            console.log("for num1: ", num1, item);
             num1 = calDisplay.textContent.trim();
             operator = item;
             status.textContent = num1;
@@ -196,8 +203,6 @@ function addClickEventToOperationButton(item){
             calDisplay.textContent = item;
         }
     }
-  
-  
 });
 
 
