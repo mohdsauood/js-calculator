@@ -11,6 +11,7 @@ window.addEventListener('load', () => {
     let clearButton = document.querySelector('.clearButton');
     let num1, num2, operator,
         clickedOnEqualsButton = "";
+    let isEqualPressed = false;
 
     // Add click event to the clear button
     clearButton.addEventListener('click', () => {
@@ -20,6 +21,7 @@ window.addEventListener('load', () => {
         operator = "";
         clickedOnEqualsButton = "";
         status.textContent = " ";
+        isEqualPressed = false;
     });
 
     // Initiate the number and operational buttons
@@ -37,9 +39,12 @@ window.addEventListener('load', () => {
 
         } else {
             item.addEventListener('click', () => {
-                num2 = calDisplay.textContent.trim();
-                clickedOnEqualsButton = item.dataset.val;
-                calculate(num1, num2, operator);
+                if (!isEqualPressed) {
+                    num2 = calDisplay.textContent.trim();
+                    clickedOnEqualsButton = item.dataset.val;
+                    calculate(num1, num2, operator);
+                }
+                isEqualPressed = true;
             });
         }
     });
@@ -154,10 +159,12 @@ window.addEventListener('load', () => {
                 addKeyboardEventToOperationButton(key);
             }
         } else if (key === "=" || key === "Enter") {
-
-            num2 = calDisplay.textContent.trim();
-            clickedOnEqualsButton = key;
-            calculate(num1, num2, operator);
+            if (!isEqualPressed) {
+                num2 = calDisplay.textContent.trim();
+                clickedOnEqualsButton = key;
+                calculate(num1, num2, operator);
+                isEqualPressed = true;
+            }
         } else if (event.keyCode === 8) {
             calDisplay.textContent = " ";
             num1 = "";
@@ -165,6 +172,7 @@ window.addEventListener('load', () => {
             operator = "";
             clickedOnEqualsButton = "";
             status.textContent = " ";
+            isEqualPressed = false;
         }
 
     })
