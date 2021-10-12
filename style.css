@@ -2,26 +2,29 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  font-family: "Roboto Mono", monospace;
+  font-family: 'Roboto Mono', monospace;
 }
 
-body
-{
+body {
   width: 100%;
   min-height: 100vh;
-  background:linear-gradient(45deg,rgb(255, 0, 85),rgb(250, 212, 0) 50%,rgb(0, 42, 110) 50%,rgb(0, 183, 255));
+  background: linear-gradient(
+    45deg,
+    rgb(255, 0, 85),
+    rgb(250, 212, 0) 50%,
+    rgb(0, 42, 110) 50%,
+    rgb(0, 183, 255)
+  );
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
-.preloader
-{
+.preloader {
   height: 100vh;
   width: 100%;
   background-color: #ffffff69;
-  backdrop-filter:blur(60px);
+  backdrop-filter: blur(60px);
   position: absolute;
   display: flex;
   justify-content: center;
@@ -30,25 +33,21 @@ body
   overflow: hidden;
 }
 
-.preloader img
-{
+.preloader img {
   height: 300px;
   width: auto;
   animation: animate 2s ease infinite;
 }
 
-@keyframes animate 
-{
-  0%,100%
-  {
+@keyframes animate {
+  0%,
+  100% {
     transform: translateY(20px);
   }
-  50%
-  {
+  50% {
     transform: translateY(-20px);
   }
 }
-
 
 .calFrame {
   width: 25vw;
@@ -58,8 +57,8 @@ body
   background-color: rgba(255, 255, 255, 0.26);
   display: flex;
   flex-direction: column;
-  padding:10px;
-  box-shadow: inset 2px 2px  rgba(228, 228, 228, 0.411);
+  padding: 10px;
+  box-shadow: inset 2px 2px rgba(228, 228, 228, 0.411);
   backdrop-filter: blur(60px);
 }
 
@@ -69,7 +68,7 @@ body
   color: white;
   margin: 0px 10%;
   font-size: 1.7rem;
-  box-shadow: inset 2px 2px  rgba(221, 221, 221, 0.808);
+  box-shadow: inset 2px 2px rgba(221, 221, 221, 0.808);
   padding: 8px;
   border-radius: 3px;
 }
@@ -77,7 +76,7 @@ body
 .calDisplay {
   background-color: rgba(255, 255, 255, 0.746);
   width: 90%;
-  height:8vh;
+  height: 8vh;
   margin: 2vh auto;
   display: flex;
   justify-content: flex-end;
@@ -111,7 +110,7 @@ body
   cursor: pointer;
 }
 
-.clearButton {
+/* .clearButton {
   padding: 18px;
   margin: 2% auto;
   width: 30%;
@@ -123,6 +122,22 @@ body
   box-shadow: inset 2px 2px rgb(255, 255, 255);
   border-radius: 5px;
   text-align: center;
+  transition: 0.1s ease;
+} */
+
+.clearButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  padding: 17px 7px;
+  margin: 7px;
+  background-color: rgba(255, 255, 255, 0.479);
+  color: rgb(255, 0, 0);
+  backdrop-filter: blur(50px);
+  border-radius: 3px;
+  transform: scale(1);
+  box-shadow: inset 2px 2px rgb(255, 255, 255);
   transition: 0.1s ease;
 }
 
@@ -142,7 +157,6 @@ body
     text-align: center;
   }
 }
-
 
 @media (max-width: 1700px) {
   .calFrame {
@@ -242,7 +256,11 @@ body
     align-items: center;
     font-size: 22px;
   }
- 
+  .clearButton {
+    width: 4.5rem;
+    height: 4.5rem;
+    font-size: 1.2rem;
+  }
 }
 
 @media (max-width: 607px) and (min-width: 500px) {
@@ -261,18 +279,23 @@ body
     align-items: center;
     font-size: 22px;
   }
-  .clearButton
-  {
+
+  .clearButton {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .clearButton {
     padding: 8px;
     font-size: 20px;
   }
 
-  .preloader img
-  {
+  .preloader img {
     height: 250px;
     width: auto;
   }
 }
+
 
 @media (max-width: 500px) and (min-width: 460px) {
   .calDisplay
@@ -347,13 +370,13 @@ body
     align-items: center;
     font-size: 20px;
   }
-  .clearButton
-  {
+  .clearButton {
+    width: 3rem;
+    height: 3rem;
     padding: 7px;
-    font-size: 17px;
+    font-size: 15px;
   }
-  .preloader img
-  {
+  .preloader img {
     height: 200px;
     width: auto;
   }
@@ -376,13 +399,13 @@ body
     align-items: center;
     font-size: 19px;
   }
-  .clearButton
-  {
+  .clearButton {
+    width: 2.9rem;
+    height: 2.9rem;
     padding: 10px;
     font-size: 14px;
   }
-  .preloader img
-  {
+  .preloader img {
     height: 100px;
     width: auto;
   }
@@ -433,18 +456,15 @@ body
     align-items: center;
     font-size: 19px;
   }
-  .clearButton
-  {
+  .clearButton {
     padding: 10px;
     font-size: 14px;
   }
-  .preloader img
-  {
+  .preloader img {
     height: 100px;
     width: auto;
   }
 }
-
 /* 250 to 280 */
 @media (max-width:280px) and (min-width: 250px) {
   .calFrame {
@@ -526,6 +546,14 @@ body
   .calFrame 
   {
     width: 100vw;
+@media (max-width: 200px) {
+  .calDisplay {
+    height: 5vh;
+    font-size: 22px;
+  }
+
+  .calFrame {
+    width: 90vw;
   }
   .calButton {
     width: 1.6rem;
@@ -535,8 +563,7 @@ body
     align-items: center;
     font-size: 19px;
   }
-  .clearButton
-  {
+  .clearButton {
     padding: 7px;
     font-size: 11px;
   }
