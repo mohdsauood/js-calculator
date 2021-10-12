@@ -36,11 +36,14 @@ window.addEventListener('load', () => {
     let states = {
         firstNumber: {
             numberClicked: function (number) {
+                if (number === "." && num1.includes(".")) return;
+
                 if (num1 === "0") {
                     num1 = number;
                 } else {
                     num1 += number;
                 }
+
                 calDisplay.textContent = num1;
             },
             operationClicked: function (operation) {
@@ -57,6 +60,8 @@ window.addEventListener('load', () => {
         },
         secondNumber: {
             numberClicked: function (number) {
+                if (number === "." && num2.includes(".")) return;
+
                 if (equalsClicked || operationClicked) {
                     num2 = number;
                     calDisplay.textContent = num2;
