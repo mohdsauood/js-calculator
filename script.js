@@ -6,130 +6,161 @@ function myFunctionLoad()
 }
 /*-----------Function For preloader end-------------*/
 window.addEventListener('load', () => {
-
+    // DOM references
     let calDisplay = document.querySelector('.calDisplay');
     let calButtons = document.querySelectorAll('.calButton');
     let status = document.querySelector('.status');
     let clearButton = document.querySelector('.clearButton');
-    let num1, num2, op, xt = "";
+
+    let num1 = "0";                 // First number in the calculation
+    let num2 = "0";                 // Second number in the calculation
+    let op = "";                    // Chosen operation
+    let equalsClicked = false;      // Was the equals button clicked?
+    let operationClicked = false;   // Was any operation button just clicked?
+    let num2Changed = false;        // Was the second number changed as last input?
+
+    // Common function for resetting the calculator and return to the initial state.
+    let resetFunction = function() {
+        num1 = "0";
+        num2 = "0";
+        op = "";
+        calDisplay.textContent = "0";
+        status.textContent = "";
+        equalsClicked = false;
+        operationClicked = false;
+        num2Changed = false;
+        currentState = states.firstNumber;
+    };
+
+    // State object with functions scoped to each state.
+    let states = {
+        firstNumber: {
+            numberClicked: function (number) {
+                if (num1 === "0") {
+                    num1 = number;
+                } else {
+                    num1 += number;
+                }
+                calDisplay.textContent = num1;
+            },
+            operationClicked: function (operation) {
+                op = operation;
+                currentState = states.secondNumber;
+                status.textContent = num1;
+            },
+            equalsClicked: function () {
+                // Do nothing in this state
+            },
+            resetClicked: function () {
+                resetFunction();
+            }
+        },
+        secondNumber: {
+            numberClicked: function (number) {
+                if (equalsClicked || operationClicked) {
+                    num2 = number;
+                    calDisplay.textContent = num2;
+                    equalsClicked = false;
+                    operationClicked = false;
+                    num2Changed = true;
+                    return;
+                }
+                if (num2 === "0") {
+                    num2 = number;
+                    num2Changed = true;
+                } else {
+                    num2 += number;
+                    num2Changed = true;
+                }
+                calDisplay.textContent = num2;
+            },
+            operationClicked: function (operation) {
+                if (num2Changed && !equalsClicked) {
+                    num1 = JSON.stringify(calculate(num1, num2, op));
+                    calDisplay.textContent = num1;
+                    status.textContent = num1;
+                    num2Changed = false;
+                }
+                op = operation;
+                status.textContent = num1;
+                operationClicked = true;
+            },
+            equalsClicked: function () {
+                num1 = JSON.stringify(calculate(num1, num2, op));
+                calDisplay.textContent = num1;
+                equalsClicked = true;
+            },
+            resetClicked: function () {
+                resetFunction();
+            }
+        }
+    };
+
+    // set initial state at start
+    let currentState = states.firstNumber;
 
     // Add click event to the clear button
     clearButton.addEventListener('click', () => {
-        calDisplay.textContent = " ";
-        num1 = "";                                  // First number in the calculation
-        num2 = "";                                  // Second number in the calculation
-        op = "";                                    // Operation for the calculation
-        xt = "";                                    // Did we hit the (=) button or not. After clicking this, we want to start a new caclulation
-        status.textContent = "";
+        currentState.resetClicked();
     });
 
     // Initiate the number and operational buttons
     calButtons.forEach((item) => {
         if (item.dataset.val !== "=") {
-            if (item.dataset.val !== "+" && item.dataset.val !== "-" && item.dataset.val !== "÷" && item.dataset.val !== "%" && item.dataset.val !== "*") {
+            if (item.dataset.val !== "+" && item.dataset.val !== "-" && item.dataset.val !== "/" && item.dataset.val !== "%" && item.dataset.val !== "*") {
                 // Add click event for all number buttons
                 item.addEventListener('click', () => {
-                    // Does the display contain operational chars?
-                    const matchResult = calDisplay.textContent.trim().match(/([\+\-\÷\*\%])/g);
-                    if (matchResult) {
-                        op = matchResult && matchResult.join("") || "";
-                        calDisplay.textContent = item.dataset.val;
-                    } else {
-                        // Are we adding numbers after clicking the (=) button? If so, we want to start with a new calculation.
-                        if (xt === "=") {
-                            xt = ""; // Restore this variable until we hit the (=) button again.
-                            calDisplay.textContent = item.dataset.val; // Start with a new caclulation
-                        } else {
-                            calDisplay.textContent += item.dataset.val; // Add numbers to the current num1 or num2
-                        }
-                    }
+                    currentState.numberClicked(item.dataset.val);
                 });
             } else {
                 // Add click event for all operation buttons
                 item.addEventListener('click', () => {
-                    if (!(num1)) {
-                        // First number is not defined. Lets add it to variable num1
-                        num1 = calDisplay.textContent.trim();
-                        op = item.dataset.val;
-                        status.textContent = num1;
-                        calDisplay.textContent = item.dataset.val;
-                    } else {
-                        // First number is defined. Set the second value and execute the current caclulation operation (op)
-                        num2 = calDisplay.textContent.trim();
-                        calculate(num1, num2, op);
-                        calDisplay.textContent = item.dataset.val;
-                    }
+                    currentState.operationClicked(item.dataset.val);
                 });
             }
 
         } else {
             // Add click event to the equals (=) button
             item.addEventListener('click', () => {
-                num2 = calDisplay.textContent.trim();
-                calculate(num1, num2, op);
-                num1 = "";
-                num2 = "";
-                status.textContent = "";
-                xt = "="
+                currentState.equalsClicked();
             });
         }
     });
-
-    function setDisplay(val) {
-        status.textContent = num1;
-        calDisplay.textContent = val;
-    }
 
     function calculate(a, b, c) {
         a = Number(a);
         b = Number(b);
         switch (c) {
             case '+':
-                add(a, b);
-                break;
-
+                return add(a, b);
             case '-':
-                sub(a, b);
-                break;
-
-            case '÷':
-                div(a, b);
-                break;
-
+                return sub(a, b);
+            case '/':
+                return div(a, b);
             case '%':
-                rem(a, b);
-                break;
-
+                return rem(a, b);
             case '*':
-                mul(a, b);
-                break;
+                return mul(a, b);
         }
     }
 
     function add(a, c) {
-        num1 = a + c;
-        setDisplay(a + c);
+        return a + c;
     }
 
     function sub(a, c) {
-        num1 = a - c;
-        setDisplay(a - c);
+        return a - c;
     }
 
     function div(a, c) {
-        let val = a / c;
-        num1 = val.toFixed(5);
-        setDisplay(val.toFixed(5));
+        return Number((a / c).toFixed(5));
     }
 
     function rem(a, c) {
-        let val = a % c;
-        num1 = val.toFixed(3);
-        setDisplay(parseFloat(val.toFixed(3)));
+        return Number((a % c).toFixed(3));
     }
 
     function mul(a, c) {
-        num1 = a * c;
-        setDisplay(a * c);
+        return a * c;
     }
 });
