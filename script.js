@@ -161,6 +161,7 @@ window.addEventListener('load', () => {
 
     if (
       key === "." ||
+      key === "00" ||
       key === "0" ||
       key === "1" ||
       key === "2" ||
