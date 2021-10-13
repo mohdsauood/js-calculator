@@ -102,6 +102,7 @@ body {
   transform: scale(1);
   box-shadow: inset 2px 2px rgb(255, 255, 255);
   transition: 0.1s ease;
+  flex: 1 1 18%;
 }
 
 .calButton:hover,
