@@ -82,6 +82,10 @@ window.addEventListener('load', () => {
       case "*":
         mul(a, b);
         break;
+			
+		case "Clear":
+        clearData();
+        break;
     }
   }
 
@@ -116,6 +120,11 @@ window.addEventListener('load', () => {
     num1 = a * c;
     setDisplay(a * c);
   }
+  
+  function clearData() {
+    return false;
+  }
+  
 
   function addClickEventToNumberButton(item) {
     item.addEventListener("click", () => {
